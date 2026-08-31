@@ -32,6 +32,7 @@ export default function CarPicker({
   return (
     <>
       <button
+        data-testid="car-picker-trigger"
         onClick={() => setOpen(true)}
         className="mb-4 flex w-full items-center justify-between rounded-xl border border-gray-200 bg-white px-3.5 py-3 text-left transition-colors hover:border-gray-300"
       >
