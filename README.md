@@ -14,21 +14,23 @@ OdoBack helps you monitor your odometer readings and calculate your Etiqa cashba
 - Maximum odometer limits per tier
 - Submission history with per-row deletion
 - Car name editing
-- Local SQLite persistence via Drizzle
+- Local persistence via Drizzle + libSQL (SQLite locally, Turso in production)
 
 ## Tech Stack
 
 - **Framework:** Next.js 16+ (App Router, SSR)
 - **Language:** TypeScript (strict)
 - **Styling:** Tailwind CSS
-- **Database:** Drizzle ORM + SQLite
+- **Database:** Drizzle ORM + libSQL (Turso)
 - **Validation:** Zod
 - **Testing:** Vitest (unit), Playwright (e2e)
+- **Formatting:** Prettier, Husky, lint-staged, commitlint
 - **Package Manager:** pnpm
 
 ## Getting Started
 
 ```bash
+cp .env.example .env
 pnpm install
 pnpm db:push
 pnpm dev
@@ -38,13 +40,14 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Database
 
+Uses Turso/libSQL. Local dev defaults to `file:./data/odoback.db`. Set `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN` in `.env` for production.
+
 Schema push (no migrations):
 
 ```bash
 pnpm db:push
+pnpm db:studio   # open Drizzle Studio
 ```
-
-The SQLite database is stored at `data/odoback.db`.
 
 ## Testing
 
@@ -74,9 +77,11 @@ src/
   components/     # UI components
   db/             # Drizzle schema and adapter
   hooks/          # Client-side state
+  lib/            # Shared utilities (cn)
   repositories/   # Data access layer
   schemas/        # Zod validation
   services/       # Business logic
+  utils/          # Helper functions
   __tests__/      # Unit tests
 e2e/              # Playwright tests
 ```
