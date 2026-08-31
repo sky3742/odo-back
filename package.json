@@ -30,7 +30,6 @@
   },
   "dependencies": {
     "@libsql/client": "latest",
-    "better-sqlite3": "latest",
     "clsx": "latest",
     "drizzle-orm": "latest",
     "lucide-react": "latest",
@@ -43,7 +42,6 @@
   "devDependencies": {
     "@playwright/test": "latest",
     "@tailwindcss/postcss": "latest",
-    "@types/better-sqlite3": "latest",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",

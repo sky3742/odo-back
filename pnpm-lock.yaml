@@ -11,9 +11,6 @@ importers:
       '@libsql/client':
         specifier: latest
         version: 0.17.4
-      better-sqlite3:
-        specifier: latest
-        version: 13.0.3
       clsx:
         specifier: latest
         version: 2.1.1
@@ -45,9 +42,6 @@ importers:
       '@tailwindcss/postcss':
         specifier: latest
         version: 4.3.3
-      '@types/better-sqlite3':
-        specifier: latest
-        version: 9.6.0
       '@types/node':
         specifier: latest
         version: 26.4.0
@@ -3966,6 +3960,7 @@ snapshots:
   '@types/better-sqlite3@9.6.0':
     dependencies:
       '@types/node': 26.4.0
+    optional: true
 
   '@types/chai@5.2.3':
     dependencies:
@@ -4309,6 +4304,7 @@ snapshots:
   better-sqlite3@13.0.3:
     dependencies:
       node-addon-api: 8.9.2
+    optional: true
 
   brace-expansion@1.1.18:
     dependencies:
@@ -5412,7 +5408,8 @@ snapshots:
       - '@types/node'
       - babel-plugin-macros
 
-  node-addon-api@8.9.2: {}
+  node-addon-api@8.9.2:
+    optional: true
 
   node-exports-info@1.6.2:
     dependencies:
