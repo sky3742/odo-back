@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { CarFront, ChevronDown, Pencil, Plus, Trash2 } from "lucide-react";
 import Modal from "@/components/tracker/Modal";
+import { cn } from "@/lib/cn";
 import type { Car } from "@/schemas/car";
 
 export default function CarPicker({
@@ -34,7 +35,7 @@ export default function CarPicker({
         onClick={() => setOpen(true)}
         className="mb-4 flex w-full items-center justify-between rounded-xl border border-gray-200 bg-white px-3.5 py-3 text-left transition-colors hover:border-gray-300"
       >
-        <div className="flex items-center gap-2.5 min-w-0">
+        <div className="flex min-w-0 items-center gap-2.5">
           <CarFront size={16} className="shrink-0 text-emerald-600" />
           <span className="truncate text-sm font-semibold">
             {current?.identifier ?? "Select car"}
@@ -50,11 +51,12 @@ export default function CarPicker({
               <div
                 data-testid="car-row"
                 key={item.id}
-                className={`flex items-center gap-2 rounded-xl border px-3 py-3 transition-colors ${
+                className={cn(
+                  "flex items-center gap-2 rounded-xl border px-3 py-3 transition-colors",
                   item.id === selectedId
                     ? "border-emerald-200 bg-emerald-50"
-                    : "border-transparent hover:bg-gray-50"
-                }`}
+                    : "border-transparent hover:bg-gray-50",
+                )}
               >
                 <button
                   onClick={() => select(item.id)}
@@ -62,7 +64,10 @@ export default function CarPicker({
                 >
                   <CarFront
                     size={16}
-                    className={`shrink-0 ${item.id === selectedId ? "text-emerald-600" : "text-gray-400"}`}
+                    className={cn(
+                      "shrink-0",
+                      item.id === selectedId ? "text-emerald-600" : "text-gray-400",
+                    )}
                   />
                   <span className="truncate text-sm font-semibold">{item.identifier}</span>
                 </button>

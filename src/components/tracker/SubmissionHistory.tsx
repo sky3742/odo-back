@@ -1,11 +1,8 @@
 import { Trash2 } from "lucide-react";
 import { getStats } from "@/services/car";
+import { formatDate } from "@/utils/date";
+import { cn } from "@/lib/cn";
 import type { Car } from "@/schemas/car";
-
-const formatDate = (value: string) =>
-  new Intl.DateTimeFormat("en-MY", { day: "numeric", month: "short", year: "numeric" }).format(
-    new Date(`${value}T00:00:00`),
-  );
 
 export default function SubmissionHistory({
   car,
@@ -26,9 +23,10 @@ export default function SubmissionHistory({
           {entries.map((entry, index) => (
             <div
               key={entry.id}
-              className={`flex items-center gap-3 px-3.5 py-3 ${
-                index > 0 ? "border-t border-gray-100" : ""
-              }`}
+              className={cn(
+                "flex items-center gap-3 px-3.5 py-3",
+                index > 0 && "border-t border-gray-100",
+              )}
             >
               <div className="min-w-0 flex-1">
                 <div className="flex items-center justify-between gap-2">

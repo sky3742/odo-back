@@ -3,17 +3,8 @@
 import { useState } from "react";
 import Modal from "@/components/tracker/Modal";
 import { nextDate } from "@/services/car";
+import { today, formatDate } from "@/utils/date";
 import type { Submission } from "@/schemas/car";
-
-const today = () => {
-  const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-};
-
-const formatDate = (value: string) =>
-  new Intl.DateTimeFormat("en-MY", { day: "numeric", month: "short", year: "numeric" }).format(
-    new Date(`${value}T00:00:00`),
-  );
 
 export default function SubmissionModal({
   last,

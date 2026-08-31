@@ -3,21 +3,12 @@
 import { useState } from "react";
 import { CalendarDays, Fuel } from "lucide-react";
 import { getStats, nextDate } from "@/services/car";
+import { today, formatDate } from "@/utils/date";
 import type { Car } from "@/schemas/car";
 import Stats from "@/components/tracker/Stats";
 import SubmissionHistory from "@/components/tracker/SubmissionHistory";
 import SubmissionModal from "@/components/tracker/SubmissionModal";
 import TierLimits from "@/components/tracker/TierLimits";
-
-const today = () => {
-  const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-};
-
-const formatDate = (value: string) =>
-  new Intl.DateTimeFormat("en-MY", { day: "numeric", month: "short", year: "numeric" }).format(
-    new Date(`${value}T00:00:00`),
-  );
 
 export default function CarDetails({
   car,

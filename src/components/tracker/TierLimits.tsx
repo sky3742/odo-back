@@ -1,4 +1,5 @@
 import { TIERS } from "@/services/car";
+import { cn } from "@/lib/cn";
 import type { Submission } from "@/schemas/car";
 
 const tierColors = [
@@ -21,7 +22,7 @@ export default function TierLimits({
       </p>
       <div className="grid grid-cols-3 gap-2">
         {TIERS.map((tier, i) => (
-          <div key={tier.label} className={`rounded-lg border p-2.5 ${tierColors[i]}`}>
+          <div key={tier.label} className={cn("rounded-lg border p-2.5", tierColors[i])}>
             <div className="flex items-baseline justify-between">
               <span className="text-[10px] font-bold uppercase">{tier.cashback}%</span>
             </div>

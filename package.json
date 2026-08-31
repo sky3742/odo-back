@@ -29,9 +29,7 @@
     ]
   },
   "dependencies": {
-    "@neondatabase/serverless": "latest",
     "better-sqlite3": "latest",
-    "class-variance-authority": "latest",
     "clsx": "latest",
     "drizzle-orm": "latest",
     "lucide-react": "latest",
