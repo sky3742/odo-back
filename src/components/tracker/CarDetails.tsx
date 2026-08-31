@@ -23,6 +23,8 @@ export default function CarDetails({
   const last = car.submissions.at(-1);
   const previous = car.submissions.at(-2);
   const stats = previous && last ? getStats(previous, last) : null;
+  const eligibleDate = last ? nextDate(last.date) : null;
+  const tooEarly = eligibleDate ? today() < eligibleDate : false;
   const elapsedToday = last
     ? Math.max(
         0,
@@ -67,7 +69,8 @@ export default function CarDetails({
         </div>
         <button
           onClick={() => setSubmissionModalOpen(true)}
-          className="flex items-center gap-1.5 rounded-lg bg-emerald-600 px-3.5 py-2 text-xs font-semibold text-white transition-colors hover:bg-emerald-700 active:bg-emerald-800"
+          disabled={tooEarly}
+          className="flex items-center gap-1.5 rounded-lg bg-emerald-600 px-3.5 py-2 text-xs font-semibold text-white transition-colors hover:bg-emerald-700 active:bg-emerald-800 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-emerald-600"
         >
           <Fuel size={13} />
           Add
