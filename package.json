@@ -9,12 +9,24 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
     "test": "vitest run",
     "test:watch": "vitest",
     "pretest:e2e": "pnpm build",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{json,css,md}": [
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "@neondatabase/serverless": "latest",
@@ -26,23 +38,26 @@
     "next": "^16.3.3",
     "react": "latest",
     "react-dom": "latest",
-    "zod": "latest",
-    "tailwind-merge": "latest"
+    "tailwind-merge": "latest",
+    "zod": "latest"
   },
   "devDependencies": {
+    "@playwright/test": "latest",
     "@tailwindcss/postcss": "latest",
     "@types/better-sqlite3": "latest",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "drizzle-kit": "latest",
-    "@playwright/test": "latest",
     "eslint": "^9.39.5",
     "eslint-config-next": "latest",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.4.1",
+    "playwright": "latest",
     "postcss": "latest",
+    "prettier": "^3.9.6",
     "tailwindcss": "latest",
     "typescript": "^5.9.3",
-    "playwright": "latest",
     "vitest": "latest"
   }
 }
