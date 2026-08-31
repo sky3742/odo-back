@@ -8,7 +8,9 @@ export const cars = sqliteTable("cars", {
 
 export const submissions = sqliteTable("submissions", {
   id: text("id").primaryKey(),
-  carId: text("car_id").notNull().references(() => cars.id, { onDelete: "cascade" }),
+  carId: text("car_id")
+    .notNull()
+    .references(() => cars.id, { onDelete: "cascade" }),
   date: text("date").notNull(),
   odometer: integer("odometer").notNull(),
   createdAt: integer("created_at", { mode: "timestamp_ms" }).notNull(),

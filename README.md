@@ -58,11 +58,11 @@ E2E tests use a separate `data/e2e.db` database.
 ## Cashback Tiers
 
 | Tier | Avg Daily Mileage | Cashback |
-|------|-------------------|----------|
-| 1 | 0 – 14 km | 30% |
-| 2 | 14.01 – 28 km | 20% |
-| 3 | 28.01 – 42 km | 10% |
-| — | > 42 km | 0% |
+| ---- | ----------------- | -------- |
+| 1    | 0 – 14 km         | 30%      |
+| 2    | 14.01 – 28 km     | 20%      |
+| 3    | 28.01 – 42 km     | 10%      |
+| —    | > 42 km           | 0%       |
 
 Submissions must be at least 10 days apart. Annual mileage must not exceed 15,000 km.
 

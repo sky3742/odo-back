@@ -9,7 +9,11 @@ test("user can add a car and edit its identifier", async ({ page }) => {
   await page.getByLabel("How do you identify this car?").fill(identifier);
   await page.getByRole("button", { name: "Add car" }).click();
   await expect(page.getByRole("button", { name: identifier })).toBeVisible();
-  await page.getByTestId("car-row").filter({ hasText: identifier }).getByRole("button", { name: "Edit car" }).click();
+  await page
+    .getByTestId("car-row")
+    .filter({ hasText: identifier })
+    .getByRole("button", { name: "Edit car" })
+    .click();
   await page.getByLabel("How do you identify this car?").fill(`${identifier} updated`);
   await page.getByRole("button", { name: "Save changes" }).click();
   await expect(page.getByRole("heading", { name: `${identifier} updated` })).toBeVisible();

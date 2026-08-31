@@ -7,15 +7,26 @@ export const TIERS = [
 ] as const;
 
 export function getStats(previous: Submission, current: Submission) {
-  const days = Math.round((new Date(`${current.date}T00:00:00`).getTime() - new Date(`${previous.date}T00:00:00`).getTime()) / 86400000);
+  const days = Math.round(
+    (new Date(`${current.date}T00:00:00`).getTime() -
+      new Date(`${previous.date}T00:00:00`).getTime()) /
+      86400000,
+  );
   const distance = current.odometer - previous.odometer;
   const average = days > 0 ? distance / days : 0;
   const tier = TIERS.find((item) => average <= item.max);
-  return { days, distance, average, tier: tier?.label ?? "Not eligible", cashback: tier?.cashback ?? 0 };
+  return {
+    days,
+    distance,
+    average,
+    tier: tier?.label ?? "Not eligible",
+    cashback: tier?.cashback ?? 0,
+  };
 }
 
 export function nextDate(date: string) {
-  const next = new Date(`${date}T00:00:00`); next.setDate(next.getDate() + 10);
+  const next = new Date(`${date}T00:00:00`);
+  next.setDate(next.getDate() + 10);
   const month = String(next.getMonth() + 1).padStart(2, "0");
   const day = String(next.getDate()).padStart(2, "0");
   return `${next.getFullYear()}-${month}-${day}`;

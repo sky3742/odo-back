@@ -5,7 +5,13 @@ const reading = (date: string, odometer: number) => ({ id: "test", date, odomete
 
 describe("OdoBack mileage rules", () => {
   it("calculates average daily mileage and the cashback tier", () => {
-    expect(getStats(reading("2026-01-01", 10000), reading("2026-01-11", 10140))).toMatchObject({ days: 10, distance: 140, average: 14, tier: "Tier 1", cashback: 30 });
+    expect(getStats(reading("2026-01-01", 10000), reading("2026-01-11", 10140))).toMatchObject({
+      days: 10,
+      distance: 140,
+      average: 14,
+      tier: "Tier 1",
+      cashback: 30,
+    });
   });
 
   it("returns the next eligible date after ten days", () => {
@@ -13,6 +19,8 @@ describe("OdoBack mileage rules", () => {
   });
 
   it("marks mileage over 42 km per day as ineligible", () => {
-    expect(getStats(reading("2026-01-01", 10000), reading("2026-01-11", 10500)).tier).toBe("Not eligible");
+    expect(getStats(reading("2026-01-01", 10000), reading("2026-01-11", 10500)).tier).toBe(
+      "Not eligible",
+    );
   });
 });

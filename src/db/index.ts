@@ -4,7 +4,9 @@ import Database from "better-sqlite3";
 import { drizzle } from "drizzle-orm/better-sqlite3";
 
 const databaseUrl = process.env.DATABASE_URL ?? "./data/odoback.db";
-const databasePath = process.env.DATABASE_URL ? databaseUrl : path.join(process.cwd(), "data", "odoback.db");
+const databasePath = process.env.DATABASE_URL
+  ? databaseUrl
+  : path.join(process.cwd(), "data", "odoback.db");
 mkdirSync(path.dirname(databasePath), { recursive: true });
 
 const sqlite = new Database(databasePath);

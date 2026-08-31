@@ -10,6 +10,11 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: "html",
   use: { baseURL: "http://localhost:3000", trace: "on-first-retry" },
-  webServer: { command: "pnpm start", url: "http://localhost:3000", reuseExistingServer: !process.env.CI, env: { ...process.env, DATABASE_URL: "./data/e2e.db" } },
+  webServer: {
+    command: "pnpm start",
+    url: "http://localhost:3000",
+    reuseExistingServer: !process.env.CI,
+    env: { ...process.env, DATABASE_URL: "./data/e2e.db" },
+  },
   projects: [{ name: "chromium", use: { browserName: "chromium" } }],
 });
