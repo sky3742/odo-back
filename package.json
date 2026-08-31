@@ -29,6 +29,7 @@
     ]
   },
   "dependencies": {
+    "@libsql/client": "latest",
     "better-sqlite3": "latest",
     "clsx": "latest",
     "drizzle-orm": "latest",
