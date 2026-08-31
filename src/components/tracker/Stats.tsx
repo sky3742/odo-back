@@ -8,19 +8,21 @@ export default function Stats({
   cashback: number;
 }) {
   return (
-    <div className="mt-6 grid gap-2 sm:mt-8 sm:grid-cols-3">
-      <Stat label="Average daily" value={`${average.toFixed(1)} km`} />
-      <Stat label="Current tier" value={tier} accent />
-      <Stat label="Cashback rate" value={`${cashback}%`} accent />
-    </div>
-  );
-}
-
-function Stat({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
-  return (
-    <div className="bg-[#f3f7f1] p-4">
-      <p className="text-xs font-bold uppercase tracking-wider text-[#66736f]">{label}</p>
-      <p className={`mt-2 text-xl font-black ${accent ? "text-[#28744a]" : ""}`}>{value}</p>
+    <div className="mt-5 grid grid-cols-3 gap-2">
+      <div className="rounded-lg bg-gray-50 p-3">
+        <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">Avg/day</p>
+        <p className="mt-1 text-base font-bold tabular-nums">{average.toFixed(1)} km</p>
+      </div>
+      <div className="rounded-lg bg-emerald-50 p-3">
+        <p className="text-[10px] font-semibold uppercase tracking-wider text-emerald-600">Tier</p>
+        <p className="mt-1 text-base font-bold text-emerald-700">{tier}</p>
+      </div>
+      <div className="rounded-lg bg-emerald-50 p-3">
+        <p className="text-[10px] font-semibold uppercase tracking-wider text-emerald-600">
+          Cashback
+        </p>
+        <p className="mt-1 text-base font-bold text-emerald-700">{cashback}%</p>
+      </div>
     </div>
   );
 }

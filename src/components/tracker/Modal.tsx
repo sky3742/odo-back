@@ -12,18 +12,18 @@ export default function Modal({
 }) {
   return (
     <div
-      className="fixed inset-0 z-10 flex items-end justify-center bg-[#10231f]/75 p-0 sm:items-center sm:p-5"
-      onMouseDown={(event) => event.target === event.currentTarget && onClose()}
+      className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 sm:items-center sm:p-4"
+      onMouseDown={(e) => e.target === e.currentTarget && onClose()}
     >
-      <div className="w-full max-w-md rounded-t-3xl bg-white p-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))] shadow-2xl sm:rounded-3xl sm:pb-6">
-        <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-2xl font-black">{title}</h2>
+      <div className="sheet w-full max-w-sm rounded-t-2xl bg-white p-5 pb-[calc(20px+env(safe-area-inset-bottom))] shadow-xl sm:rounded-2xl sm:p-6 sm:pb-6">
+        <div className="mb-5 flex items-center justify-between">
+          <h2 className="text-lg font-bold tracking-tight">{title}</h2>
           <button
             onClick={onClose}
             aria-label="Close"
-            className="min-h-11 min-w-11 rounded-full p-2"
+            className="-mr-2 rounded-full p-2 hover:bg-gray-100"
           >
-            <X />
+            <X size={18} className="text-gray-500" />
           </button>
         </div>
         {children}

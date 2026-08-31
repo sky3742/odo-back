@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { CalendarDays, Fuel } from "lucide-react";
 import { getStats, nextDate } from "@/services/car";
 import type { Car } from "@/schemas/car";
 import Stats from "@/components/tracker/Stats";
@@ -9,9 +10,10 @@ import SubmissionModal from "@/components/tracker/SubmissionModal";
 import TierLimits from "@/components/tracker/TierLimits";
 
 const today = () => {
-  const date = new Date();
-  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 };
+
 const formatDate = (value: string) =>
   new Intl.DateTimeFormat("en-MY", { day: "numeric", month: "short", year: "numeric" }).format(
     new Date(`${value}T00:00:00`),
@@ -46,37 +48,44 @@ export default function CarDetails({
   }
 
   return (
-    <div className="border-b border-[#dce5df] pb-8">
-      <p className="text-sm text-[#66736f]">Tracking</p>
-      <h2 className="mt-1 break-words text-xl font-black sm:text-2xl">{car.identifier}</h2>
+    <div className="mt-2">
+      <h2 className="text-lg font-bold tracking-tight">{car.identifier}</h2>
+
       {stats ? (
         <Stats average={stats.average} tier={stats.tier} cashback={stats.cashback} />
       ) : (
-        <div className="mt-6 bg-[#f3f7f1] p-4 sm:mt-8 sm:p-5">
-          <p className="font-bold">Start with your first reading</p>
-          <p className="mt-1 text-sm leading-6 text-[#66736f]">
-            Add a second reading at least 10 days later to see your average and cashback tier.
+        <div className="mt-5 rounded-xl border border-dashed border-emerald-200 bg-emerald-50/50 p-4">
+          <p className="text-sm font-semibold text-emerald-800">Start with your first reading</p>
+          <p className="mt-1 text-xs leading-relaxed text-emerald-600">
+            Add a second reading at least 10 days later to see your average and tier.
           </p>
         </div>
       )}
-      <div className="mt-6 flex flex-col gap-3 border-t border-[#e7eee8] pt-5 sm:mt-8 sm:flex-row sm:items-center sm:justify-between sm:pt-6">
-        <div>
-          <p className="text-xs font-bold uppercase tracking-wider text-[#66736f]">
-            {last ? "Next eligible submission" : "First submission"}
-          </p>
-          <p className="mt-1 font-bold">
-            {last ? formatDate(nextDate(last.date)) : "Whenever you’re ready"}
-          </p>
+
+      <div className="mt-5 flex items-center justify-between rounded-xl border border-gray-100 bg-white px-4 py-3">
+        <div className="flex items-center gap-2 text-sm text-gray-500">
+          <CalendarDays size={14} className="text-gray-400" />
+          {last ? (
+            <span>
+              Next:{" "}
+              <span className="font-medium text-gray-700">{formatDate(nextDate(last.date))}</span>
+            </span>
+          ) : (
+            <span>Ready when you are</span>
+          )}
         </div>
         <button
           onClick={() => setSubmissionModalOpen(true)}
-          className="w-full rounded-full bg-[#c9edcf] px-4 py-3 text-sm font-bold text-[#1d5c3b] hover:bg-[#b7e6be] sm:w-auto"
+          className="flex items-center gap-1.5 rounded-lg bg-emerald-600 px-3.5 py-2 text-xs font-semibold text-white transition-colors hover:bg-emerald-700 active:bg-emerald-800"
         >
-          Add reading
+          <Fuel size={13} />
+          Add
         </button>
       </div>
+
       {last && <TierLimits last={last} elapsedDays={elapsedToday} />}
       <SubmissionHistory car={car} onDelete={removeSubmission} />
+
       {isSubmissionModalOpen && (
         <SubmissionModal
           last={last}
