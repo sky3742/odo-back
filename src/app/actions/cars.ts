@@ -2,14 +2,15 @@
 
 import { z } from "zod";
 import { carsSchema } from "@/schemas/car";
+import { nextDate } from "@/services/car";
 import {
-  createCar,
-  createSubmission,
-  deleteCar,
-  deleteSubmission,
-  getCars,
-  renameCar,
-} from "@/services/cars";
+  insertCar,
+  insertSubmission,
+  listCars,
+  removeCar,
+  removeSubmission,
+  updateCar,
+} from "@/repositories/cars";
 
 const idSchema = z.string().min(1);
 const identifierSchema = z.string().trim().min(1);
@@ -21,22 +22,32 @@ const submissionInputSchema = z.object({
 const result = (value: unknown) => carsSchema.parse(value);
 
 export async function getCarsAction() {
-  return result(await getCars());
+  return result(await listCars());
 }
 export async function createCarAction(identifier: string) {
-  return result(await createCar(identifierSchema.parse(identifier)));
+  await insertCar(crypto.randomUUID(), identifierSchema.parse(identifier));
+  return result(await listCars());
 }
 export async function renameCarAction(id: string, identifier: string) {
-  return result(await renameCar(idSchema.parse(id), identifierSchema.parse(identifier)));
+  await updateCar(idSchema.parse(id), identifierSchema.parse(identifier));
+  return result(await listCars());
 }
 export async function deleteCarAction(id: string) {
-  return result(await deleteCar(idSchema.parse(id)));
+  await removeCar(idSchema.parse(id));
+  return result(await listCars());
 }
 export async function createSubmissionAction(input: unknown) {
   const parsed = submissionInputSchema.parse(input);
-  return result(await createSubmission(parsed.carId, parsed.date, parsed.odometer));
+  const car = (await listCars()).find((item) => item.id === parsed.carId);
+  const last = car?.submissions.at(-1);
+  if (!car) throw new Error("Car not found");
+  if (last && (parsed.date < nextDate(last.date) || parsed.odometer <= last.odometer))
+    throw new Error("Submission must be at least 10 days later with a higher odometer reading");
+  await insertSubmission(crypto.randomUUID(), parsed.carId, parsed.date, parsed.odometer);
+  return result(await listCars());
 }
 export async function deleteSubmissionAction(input: unknown) {
   const parsed = z.object({ id: idSchema, carId: idSchema }).parse(input);
-  return result(await deleteSubmission(parsed.id, parsed.carId));
+  await removeSubmission(parsed.id, parsed.carId);
+  return result(await listCars());
 }

@@ -9,9 +9,7 @@ import {
   getCarsAction,
   renameCarAction,
 } from "@/app/actions/cars";
-import { carsSchema, type Car } from "@/schemas/car";
-
-const STORAGE_KEY = "odoback-cars";
+import { type Car } from "@/schemas/car";
 
 export function useCars() {
   const [cars, setCars] = useState<Car[]>([]);
@@ -23,17 +21,8 @@ export function useCars() {
         setCars(items);
         setSelectedId((current) => current ?? items[0]?.id ?? null);
       })
-      .catch(() => {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if (!saved) return;
-        const result = carsSchema.safeParse(JSON.parse(saved));
-        if (result.success) {
-          setCars(result.data);
-          setSelectedId((current) => current ?? result.data[0]?.id ?? null);
-        }
-      });
+      .catch(() => undefined);
   }, []);
-  useEffect(() => localStorage.setItem(STORAGE_KEY, JSON.stringify(cars)), [cars]);
 
   function deleteCar(id: string) {
     deleteCarAction(id)

@@ -2,16 +2,14 @@
 
 import { auth } from "@/auth";
 import { isRateLimited, recordAttempt } from "@/services/rateLimit";
-import { ensureAdminUser, getSession as getAuthSession } from "@/services/auth";
+import { ensureAdminUser, getSession } from "@/services/auth";
 import { timingSafeCompare } from "@/utils/crypto";
 import { cookies } from "next/headers";
 
 const MAX_ATTEMPTS = 5;
 const WINDOW_MS = 15 * 60 * 1000;
 
-export async function getSession() {
-  return getAuthSession();
-}
+export { getSession };
 
 export async function signInWithPasscode(passcode: string) {
   const serverPasscode = process.env.AUTH_PASSCODE;

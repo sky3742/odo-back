@@ -14,5 +14,3 @@ export function createDb() {
   }
   return instance;
 }
-
-export const db = createDb();

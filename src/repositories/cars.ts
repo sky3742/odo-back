@@ -1,6 +1,8 @@
 import { and, desc, eq } from "drizzle-orm";
-import { db } from "@/db";
+import { createDb } from "@/db";
 import { cars, submissions } from "@/db/schema";
+
+const db = createDb();
 
 export async function listCars() {
   const records = await db.select().from(cars).orderBy(desc(cars.createdAt));
